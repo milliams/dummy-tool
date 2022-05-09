@@ -43,4 +43,6 @@ jobs:
         args: --release --target=${{ matrix.target }}
         use-cross: ${{ matrix.cross }}
     - name: Show output
-      run: ls target/${{ matrix.target }}/release
+      run: cp target/${{ matrix.target }}/release/model{,.exe} .
+    - name: list output
+      run: ls -hal
