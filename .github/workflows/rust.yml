@@ -43,4 +43,4 @@ jobs:
         args: --release --target=${{ matrix.target }}
         use-cross: ${{ matrix.cross }}
     - name: Show output
-      run: ls -r target
+      run: tree target
