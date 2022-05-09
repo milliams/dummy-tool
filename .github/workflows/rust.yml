@@ -47,6 +47,6 @@ jobs:
         args: --release --target=${{ matrix.target }}
         use-cross: ${{ matrix.cross }}
     - name: Show output
-      run: cp target/${{ matrix.target }}/release/${{ matrix.name }} .
+      run: cp target/${{ matrix.target }}/release/${{ matrix.output }} .
     - name: list output
       run: ls -hal
