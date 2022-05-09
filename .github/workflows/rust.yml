@@ -26,21 +26,25 @@ jobs:
             cross: false
             output: model
             asset-name: model-linux-x86_64
+            compress-binary: true
           - target: "x86_64-pc-windows-gnu"
             os: "ubuntu-latest"
             cross: true
             output: model.exe
             asset-name: model-windows-x86_64
+            compress-binary: true
           - target: "aarch64-apple-darwin"
             os: "macOS-latest"
             cross: true
             output: model
             asset-name: model-macos-aarch64
+            compress-binary: false
           - target: "x86_64-apple-darwin"
             os: "macOS-latest"
             cross: false
             output: model
             asset-name: model-macos-x86_64
+            compress-binary: false
     steps:
       - uses: actions/checkout@v3
       - name: Install toolchain
@@ -58,6 +62,12 @@ jobs:
           use-cross: ${{ matrix.cross }}
       - name: Rename assets
         run: cp target/${{ matrix.target }}/release/${{ matrix.output }} ${{ matrix.asset-name }}
+      - name: Compress output
+        run: |
+          wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
+          tar xvf upx-3.96-amd64_linux.tar.xz
+          upx-3.96-amd64_linux/upx --brute ${{ matrix.asset-name }}
+        if: ${{ matrix.compress-binary }}
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
