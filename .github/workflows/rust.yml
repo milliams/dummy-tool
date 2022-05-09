@@ -25,18 +25,22 @@ jobs:
             os: "ubuntu-latest"
             cross: false
             output: model
+            asset-name: model-linux-x86_64
           - target: "x86_64-pc-windows-gnu"
             os: "ubuntu-latest"
             cross: true
             output: model.exe
+            asset-name: model-windows-x86_64
           - target: "aarch64-apple-darwin"
             os: "macOS-latest"
             cross: true
             output: model
+            asset-name: model-macos-aarch64
           - target: "x86_64-apple-darwin"
             os: "macOS-latest"
             cross: false
             output: model
+            asset-name: model-macos-x86_64
     steps:
       - uses: actions/checkout@v3
       - name: Install toolchain
@@ -52,8 +56,10 @@ jobs:
           command: build
           args: --release --target=${{ matrix.target }}
           use-cross: ${{ matrix.cross }}
+      - name: Rename assets
+        run: cp target/${{ matrix.target }}/release/${{ matrix.output }} ${{ matrix.asset-name }}
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/${{ matrix.target }}/release/${{ matrix.output }}
+          files: ${{ matrix.asset-name }}
