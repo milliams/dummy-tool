@@ -30,6 +30,7 @@ jobs:
       with:
         profile: minimal
         override: true
+        toolchain: stable
         target: ${{ matrix.target }}
     - name: Build
       uses: actions-rs/cargo@v1
