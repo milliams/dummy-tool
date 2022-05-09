@@ -1,6 +1,7 @@
 use std::{thread, time};
 
 use argh::FromArgs;
+use rand::Rng;
 
 #[derive(FromArgs)]
 /// Calculate the value of the interesting simulation
@@ -16,7 +17,8 @@ fn main() -> Result<(), String> {
     let a = args.num;
     println!("{:}", a);
 
-    let pause = time::Duration::from_secs(2);
+    let milliseconds = rand::thread_rng().gen_range(500..2000);
+    let pause = time::Duration::from_millis(milliseconds);
     thread::sleep(pause);
 
     Ok(())

@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 argh = "0.1.7"
+rand = "0.8.5"
 
 [profile.release]
 strip = true  # Automatically strip symbols from the binary.
