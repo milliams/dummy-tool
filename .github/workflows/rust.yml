@@ -18,15 +18,19 @@ jobs:
           - target: "x86_64-unknown-linux-gnu"
             os: "ubuntu-latest"
             cross: false
+            output: model
           - target: "x86_64-pc-windows-gnu"
             os: "ubuntu-latest"
             cross: true
+            output: model.exe
           - target: "aarch64-apple-darwin"
             os: "macOS-latest"
             cross: true
+            output: model
           - target: "x86_64-apple-darwin"
             os: "macOS-latest"
             cross: false
+            output: model
     steps:
     - uses: actions/checkout@v3
     - name: Install toolchain
@@ -43,6 +47,6 @@ jobs:
         args: --release --target=${{ matrix.target }}
         use-cross: ${{ matrix.cross }}
     - name: Show output
-      run: cp target/${{ matrix.target }}/release/model{,.exe} .
+      run: cp target/${{ matrix.target }}/release/${{ matrix.name }} .
     - name: list output
       run: ls -hal
