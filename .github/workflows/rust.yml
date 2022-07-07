@@ -31,7 +31,7 @@ jobs:
             os: "ubuntu-latest"
             cross: true
             output: model.exe
-            asset-name: model-windows-x86_64.exe
+            asset-name: model-windows-x86_64
             compress-binary: true
           - target: "aarch64-apple-darwin"
             os: "macOS-latest"
@@ -68,8 +68,6 @@ jobs:
           tar xvf upx-3.96-amd64_linux.tar.xz
           upx-3.96-amd64_linux/upx ${{ matrix.asset-name }}
         if: ${{ matrix.compress-binary }}
-      - name: Check binary runs
-        run: ./${{ matrix.asset-name }} 1
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
