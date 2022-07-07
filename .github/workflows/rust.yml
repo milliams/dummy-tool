@@ -69,7 +69,7 @@ jobs:
           upx-3.96-amd64_linux/upx ${{ matrix.asset-name }}
         if: ${{ matrix.compress-binary }}
       - name: Check binary runs
-        run: ./${{ matrix.asset-name }}
+        run: ./${{ matrix.asset-name }} 1
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
