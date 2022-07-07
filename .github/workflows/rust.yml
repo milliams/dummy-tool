@@ -31,7 +31,7 @@ jobs:
             os: "ubuntu-latest"
             cross: true
             output: model.exe
-            asset-name: model-windows-x86_64
+            asset-name: model-windows-x86_64.exe
             compress-binary: true
           - target: "aarch64-apple-darwin"
             os: "macOS-latest"
